@@ -13,6 +13,7 @@ var secret = require('./config/secret');
 var app = express();
 
 var User = require('./models/user');
+var Category = require('./models/category');
 
 //connect mongoose to mongodb
 mongoose.connect(secret.database, function(err){
@@ -38,6 +39,17 @@ app.use(session({
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.use(function(req, res, next){
+  console.log('hey');
+  Category.find({}, function(err, categories){
+    if(err) return next(err);
+    console.log(categories);
+    res.locals.categories = categories;
+    next();
+  });
+});
+
 app.use(function(req, res, next) {
   res.locals.user = req.user;
   next();
@@ -50,8 +62,10 @@ app.set('view engine', 'ejs');
 //routes
 var mainRoutes = require('./routes/main');
 var userRoutes = require('./routes/user');
+var adminRoutes = require('./routes/admin');
 app.use(mainRoutes);
 app.use(userRoutes);
+app.use(adminRoutes);
 
 
 
