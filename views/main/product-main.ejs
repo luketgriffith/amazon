@@ -3,12 +3,24 @@
 
 <div class="jumbotron">
   <div class="container">
-    <h1>Buy some stuff.</h1>
+    <h1>Welcome to re:gift</h1>
+    <p>Search our thousands of gifts and products</p>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="input-group col-md-12">
+          
+            <input id="search" placeholder="search" type="text" class="form-control input-lg" name="search_term">
+            <span class="input-group-btn">
+            <button type="submit" class="btn btn-primary btn-lg"><i class="glyphicon glyphicon-search"></i>Submit</button>
+          </span>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
 <div class="container">
-  <div class="row">
+  <div id="searchResults" class="row">
     <% for (var i=0; i < products.length; i ++){ %>
     <div class="col-md-4">
       <a href="/product/<%= products[i]._id %>">
