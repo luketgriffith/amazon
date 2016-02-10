@@ -73,8 +73,10 @@ router.post('/signup', function(req, res, next){
     
 
 router.get('/logout', function(req, res, next){
+  console.log('logging out')
   req.logout();
   res.redirect('/');
+  next();
 })
 router.get('/edit-profile', function(req, res){
   res.render('accounts/edit-profile', {message: req.flash('success')})
