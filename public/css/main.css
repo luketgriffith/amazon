@@ -4,3 +4,6 @@ body{
 .jumbotron{
   margin-top: -4%;
 }
+.product-image{
+  max-width: 100%;
+}

@@ -41,9 +41,15 @@
           <li><a class="dropdown-toggle" data-toggle="dropdown" href="#"><%= user.profile.name %></a>
             <ul class="dropdown-menu">
               <li><a href="/profile">Profile</a></li>
+              <li><a href="/add_item">List an Item</a></li>
               <li><a href="/logout">Log Out</a></li>
             </ul>
           </li>
+          <% } %>
+          <% if(user) { %>
+            <li><a href="/cart" class="glyphicon glyphicon-shopping-cart"><span class="badge"><%= cart %></span></a></li>
+          <% } else { %>
+          <li><a href="/cart" class="glyphicon glyphicon-shopping-cart"><span class="badge">0</span></a></li>
           <% } %>
         </ul>
 

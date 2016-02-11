@@ -14,7 +14,7 @@ var app = express();
 
 var User = require('./models/user');
 var Category = require('./models/category');
-
+var cartLength = require('./middleware/middlewares');
 //connect mongoose to mongodb
 mongoose.connect(secret.database, function(err){
   if (err) {
@@ -49,7 +49,7 @@ app.use(function(req, res, next){
     next();
   });
 });
-
+app.use(cartLength);
 app.use(function(req, res, next) {
   res.locals.user = req.user;
   next();
