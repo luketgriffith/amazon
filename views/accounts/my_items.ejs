@@ -1,0 +1,12 @@
+<% layout('layout') -%>
+
+<h2>My Items</h2>
+<div class="row">
+<% for (var i=0; i < myItems.length; i ++) { %>
+<div class="col-md-4">
+  <h4><%= myItems[i].name %></h4>
+</div>
+
+<% } %>
+
+</div>

@@ -69,24 +69,31 @@ router.get('/cart', function(req, res, next){
     }); 
 });
 
+router.get('/my_items', function(req, res, next) {
+  Product.find({ user: req.user._id}, function(err, foundItems){
+
+    if (err) return next(err);
+    console.log(foundItems);
+    res.render('accounts/my_items', { myItems: foundItems})
+  });
+});
+
 router.post('/products', function(req, res, next){
-  console.log('request: ', req.body);
-  console.log('user: ', req.user);
+  
   Category.findOne({ name: req.body.category }, function(err, foundCat){
     console.log("category:", foundCat)
   var product = new Product();
+  product.user = req.user._id;
   product.category = foundCat._id;
   product.name = req.body.name;
-  product.image = req.body.image;
+  product.image = 'http://lorempixel.com/300/300';
   product.price = Number(req.body.price);
   product.save(function(err){
     if(err) return next(err);
     console.log('success');
     res.redirect('/')
-  })
-  })
-  // console.log('product?', res);
-  // res.json()
+    });
+  });
 });
 
 router.post('/product/:product_id', function(req, res, next){

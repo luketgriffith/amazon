@@ -3,7 +3,11 @@
 <h3>Add an Item</h3>
 <form action="/products" method="POST">
   <input type="text" name="name" placeholder="Name">
-  <input type="text" name="category" placeholder="Category">
+  <select name="category">
+    <% for (var i=0; i<categories.length; i++) { %>
+    <option><%= categories[i].name %></option>
+    <% } %>
+  </select>
   <input type="text" name="price" placeholder="Price">
   <input type="text" name="image" placeholder="Image URL">
   <button type="submit" class="btn btn-primary">Submit</button>
