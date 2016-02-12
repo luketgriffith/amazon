@@ -11,7 +11,10 @@ var UserSchema = new mongoose.Schema({
     name: {type: String, default: ''},
     picture: {type: String, default: ''},
   },
+  facebook: String,
+  tokens: Array,
   address: String,
+  image: String,
   history: [{
     date: Date,
     paid: {type: Number, default: 0},

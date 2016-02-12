@@ -20,6 +20,7 @@
     "async": "^1.5.2",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.14.2",
+    "connect-busboy": "0.0.2",
     "connect-mongo": "^1.1.0",
     "cookie-parser": "^1.4.1",
     "ejs": "^2.4.1",
@@ -30,7 +31,9 @@
     "faker": "^3.0.1",
     "mongoose": "^4.3.7",
     "morgan": "^1.6.1",
+    "multer": "^1.1.0",
     "passport": "^0.3.2",
+    "passport-facebook": "^2.1.0",
     "passport-local": "^1.0.0",
     "stripe": "^4.4.0"
   }

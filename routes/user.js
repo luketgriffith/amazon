@@ -4,6 +4,11 @@ var Cart = require('../models/cart');
 var passport = require('passport');
 var passportConf = require('../config/passport');
 var async = require('async');
+var multer = require('multer');
+var upload = multer({ dest: '../uploads/'})
+var fs = require('fs');
+var path = require('path');
+
 
 
 router.get('/signup', function(req, res, next){
@@ -37,9 +42,24 @@ router.get('/profile', passportConf.isAuthenticated, function(req, res){
 router.get('/add_item', passportConf.isAuthenticated, function(req, res){
   res.render('accounts/add_item')
 });
-router.post('/signup', function(req, res, next){
 
 
+
+var now = new Date();
+
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, './uploads/')
+    },
+    filename: function (req, file, cb) {
+      console.log('that req of yours: ', req);
+        cb(null, file.fieldname + '-' + now + path.extname(file.originalname))
+  }
+})
+var upload = multer({ storage: storage});
+
+router.post('/signup', upload.single('image_upload'), function(req, res, next){
+  console.log(storage);
   async.waterfall([
     function(callback){
        var user = new User();
@@ -48,7 +68,7 @@ router.post('/signup', function(req, res, next){
         user.password = req.body.password;
         user.email = req.body.email;
         user.profile.picture = user.gravatar();
-
+        user.image = 'image_upload' + now +'.jpeg';
         User.findOne({ email: req.body.email}, function(err, existingUser){
           if (existingUser){
             req.flash('errors', 'Account already exists');
@@ -97,7 +117,16 @@ router.post('/edit-profile', function(req, res, next){
       if(err) return next(err);
       req.flash('success', 'profile edited');
       return res.redirect('/edit-profile');
-    })
-  })
-})
+    });
+  });
+});
+
+router.get('/auth/facebook', passport.authenticate('facebook', {scope: 'email'}));
+
+router.get('/auth/facebook/callback', passport.authenticate('facebook', {
+  successRedirect: '/profile',
+  failureRedirect: '/login'
+}));
+
+
 module.exports = router;

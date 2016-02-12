@@ -10,7 +10,12 @@ var flash = require('express-flash');
 var MongoStore = require('connect-mongo/es5')(session);
 var passport = require('passport');
 var secret = require('./config/secret');
+var multer = require('multer');
 var app = express();
+var busboy = require('connect-busboy');
+var uploading = multer({
+  dest: __dirname + '../public/uploads/'
+})
 
 var User = require('./models/user');
 var Category = require('./models/category');
@@ -68,7 +73,6 @@ app.use(mainRoutes);
 app.use(userRoutes);
 app.use(adminRoutes);
 app.use('/api', apiRoutes);
-
 
 
 
