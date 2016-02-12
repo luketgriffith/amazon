@@ -1,3 +1,10 @@
 <% layout('layout') -%>
 
 <h3>Add an Item</h3>
+<form action="/products" method="POST">
+  <input type="text" name="name" placeholder="Name">
+  <input type="text" name="category" placeholder="Category">
+  <input type="text" name="price" placeholder="Price">
+  <input type="text" name="image" placeholder="Image URL">
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>

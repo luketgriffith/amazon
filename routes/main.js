@@ -4,7 +4,7 @@ var Product = require('../models/product');
 var Cart = require('../models/cart');
 var async = require('async');
 var stripe = require('stripe') ('sk_test_4b0RVoKSyrmDeglKZpl1TShg');
-
+var Category = require('../models/category');
 function paginate(req, res, next) {
   var perPage = 9;
     var page = req.params.page;
@@ -69,9 +69,24 @@ router.get('/cart', function(req, res, next){
     }); 
 });
 
-router.get('/products', function(req, res, next){
-  console.log('request: ', req.user);
-  res.json()
+router.post('/products', function(req, res, next){
+  console.log('request: ', req.body);
+  console.log('user: ', req.user);
+  Category.findOne({ name: req.body.category }, function(err, foundCat){
+    console.log("category:", foundCat)
+  var product = new Product();
+  product.category = foundCat._id;
+  product.name = req.body.name;
+  product.image = req.body.image;
+  product.price = Number(req.body.price);
+  product.save(function(err){
+    if(err) return next(err);
+    console.log('success');
+    res.redirect('/')
+  })
+  })
+  // console.log('product?', res);
+  // res.json()
 });
 
 router.post('/product/:product_id', function(req, res, next){
