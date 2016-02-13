@@ -2,14 +2,18 @@
 <div class="container">
   <div class="row">
     <div class="col-sm-6 col-md-4">
+      <% if (user.image) { %>
       <img class="img-circle img-responsive img-center" src="<%= user.image %>">
+      <% } else { %>
+      <img class="img-circle img-responsive img-center" src="<%= user.profile.picture %>">
+      <% } %>
       <br>
       <p>Name: <%= user.profile.name %></p>
       <p>Email: <%= user.email %></p>
 
 
       <% if(user.address === '' || typeof user.address === 'undefined'){ %>
-      <p>Address:</p><span>You have no address on file</span><br>
+      <p>Address:  <span>You have no address on file</span></p><br>
       <%} else {%> 
       <p>Address: <%= user.address %></p>
       <% } %>

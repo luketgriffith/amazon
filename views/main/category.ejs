@@ -1,5 +1,11 @@
 <% layout('layout') %>
-
+<% if(products.length == 0) { %>
+<div class="container">
+  <div class="row">
+    <h3>There Are No Products In This Category Yet</h3>
+  </div>
+</div>
+<% } else { %>
 <div class="container">
   <div class="row">
     <h3><%= products[0].category.name %></h3>
@@ -19,3 +25,4 @@
       <% } %>  
   </div>
 </div>
+<% } %>

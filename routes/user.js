@@ -8,6 +8,9 @@ var multer = require('multer');
 var upload = multer({ dest: '../uploads/'})
 var fs = require('fs');
 var path = require('path');
+var nodemailer = require('nodemailer');
+var xoauth2 = require('xoauth2');
+
 
 
 
@@ -68,10 +71,30 @@ var storage = multer.diskStorage({
       }
     }
 })
+
+
+var transporter = nodemailer.createTransport('smtps://luketgriffith%40gmail.com:ADGNXbX8few9RN@smtp.gmail.com');
+
+
+
 var upload = multer({ storage: storage});
 
 router.post('/signup', upload.single('imageupload'), function(req, res, next){
-  console.log(storage);
+
+  var mailOptions = {
+    from: 'Re:Gift <luketgriffith@gmail.com>', // sender address
+    to: req.body.email, // list of receivers
+    subject: 'Hello', // Subject line
+    text: 'Hello world 🐴', // plaintext body
+    html: '<b>Hello world 🐴</b>' // html body
+  };
+  transporter.sendMail(mailOptions, function(error, info){
+    if(error){
+        return console.log(error);
+    }
+    console.log('Message sent: ' + info.response);
+  });
+
   async.waterfall([
     function(callback){
        var user = new User();
