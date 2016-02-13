@@ -45,20 +45,32 @@ router.get('/add_item', passportConf.isAuthenticated, function(req, res){
 
 
 
-var now = new Date();
+var now = Date.now();
+
 
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, './uploads/')
+        cb(null, './public/')
     },
     filename: function (req, file, cb) {
       console.log('that req of yours: ', req);
         cb(null, file.fieldname + '-' + now + path.extname(file.originalname))
-  }
+  },
+  limits: {
+        fieldNameSize: 50,
+        files: 1,
+        fields: 5,
+        fileSize: 1024 * 1024
+    },
+  onFileUploadStart: function(file) {
+      if(file.mimetype !== 'image/jpg' && file.mimetype !== 'image/jpeg' && file.mimetype !== 'image/png') {
+          return false;
+      }
+    }
 })
 var upload = multer({ storage: storage});
 
-router.post('/signup', upload.single('image_upload'), function(req, res, next){
+router.post('/signup', upload.single('imageupload'), function(req, res, next){
   console.log(storage);
   async.waterfall([
     function(callback){
@@ -68,7 +80,7 @@ router.post('/signup', upload.single('image_upload'), function(req, res, next){
         user.password = req.body.password;
         user.email = req.body.email;
         user.profile.picture = user.gravatar();
-        user.image = 'image_upload' + now +'.jpeg';
+        user.image = 'imageupload-' + now +'.jpg';
         User.findOne({ email: req.body.email}, function(err, existingUser){
           if (existingUser){
             req.flash('errors', 'Account already exists');
