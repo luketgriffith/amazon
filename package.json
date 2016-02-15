@@ -16,6 +16,9 @@
     "url": "https://github.com/luketgriffith/amazon/issues"
   },
   "homepage": "https://github.com/luketgriffith/amazon#readme",
+  "engines": {
+    "node": "4.3.0"
+  },
   "dependencies": {
     "async": "^1.5.2",
     "bcrypt-nodejs": "0.0.3",
