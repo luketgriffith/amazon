@@ -61,6 +61,7 @@ app.use(function(req, res, next) {
   res.locals.user = req.user;
   next();
 });
+app.set('port', (process.env.PORT || 5000));
 
 app.engine('ejs', ejs_mate);
 app.set('view engine', 'ejs');
@@ -79,7 +80,7 @@ app.use('/api', apiRoutes);
 
 
 //server listen
-app.listen(secret.port, function(err){
+app.listen(app.get('port'), function(err){
   if(err) throw err;
   console.log('Server Running ok')
 });
