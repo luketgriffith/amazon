@@ -48,38 +48,38 @@ router.get('/add_item', passportConf.isAuthenticated, function(req, res){
 
 
 
-// var now = Date.now();
+var now = Date.now();
 
 
-// var storage = multer.diskStorage({
-//     destination: function (req, file, cb) {
-//         cb(null, './public/')
-//     },
-//     filename: function (req, file, cb) {
-//       console.log('that req of yours: ', req);
-//         cb(null, file.fieldname + '-' + now + path.extname(file.originalname))
-//   },
-//   limits: {
-//         fieldNameSize: 50,
-//         files: 1,
-//         fields: 5,
-//         fileSize: 1024 * 1024
-//     },
-//   onFileUploadStart: function(file) {
-//       if(file.mimetype !== 'image/jpg' && file.mimetype !== 'image/jpeg' && file.mimetype !== 'image/png') {
-//           return false;
-//       }
-//     }
-// })
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, './public/')
+    },
+    filename: function (req, file, cb) {
+      console.log('that req of yours: ', req);
+        cb(null, file.fieldname + '-' + now + path.extname(file.originalname))
+  },
+  limits: {
+        fieldNameSize: 50,
+        files: 1,
+        fields: 5,
+        fileSize: 1024 * 1024
+    },
+  onFileUploadStart: function(file) {
+      if(file.mimetype !== 'image/jpg' && file.mimetype !== 'image/jpeg' && file.mimetype !== 'image/png') {
+          return false;
+      }
+    }
+})
 
 
 // var transporter = nodemailer.createTransport('smtps://luketgriffith%40gmail.com:ADGNXbX8few9RN@smtp.gmail.com');
 
 
 
-// var upload = multer({ storage: storage});
+var upload = multer({ storage: storage});
 
-router.post('/signup', function(req, res, next){
+router.post('/signup', upload.single('imageupload') function(req, res, next){
 
   // var mailOptions = {
   //   from: 'Re:Gift <luketgriffith@gmail.com>', // sender address
