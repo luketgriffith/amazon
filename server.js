@@ -48,7 +48,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(function(req, res, next){
-  console.log('hey');
   Category.find({}, function(err, categories){
     if(err) return next(err);
     console.log(categories);
@@ -61,6 +60,7 @@ app.use(function(req, res, next) {
   res.locals.user = req.user;
   next();
 });
+
 app.set('port', (process.env.PORT || 5000));
 
 app.engine('ejs', ejs_mate);
