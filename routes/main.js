@@ -5,26 +5,26 @@ var Cart = require('../models/cart');
 var async = require('async');
 var stripe = require('stripe') ('sk_test_4b0RVoKSyrmDeglKZpl1TShg');
 var Category = require('../models/category');
-var busboy = require('connect-busboy');
-var path = require('path');
-var fs = require('fs');
-var multer = require('multer');
-var upload = multer({ dest: '../uploads/'})
+// var busboy = require('connect-busboy');
+// var path = require('path');
+// var fs = require('fs');
+// var multer = require('multer');
+// var upload = multer({ dest: '../uploads/'})
 
-router.post('/upload', upload.single('image_upload'),function(req, res, next){
+// router.post('/upload', upload.single('image_upload'),function(req, res, next){
   
     
 
 
-  User.findOne( { _id: req.user._id}, function(err, foundUser, next){
-    console.log(foundUser.profile.name);
-    foundUser.image = req.file
-    foundUser.save(function(err, next){
-      if(err) return next(err); 
-      res.send('Success');
-    })
-  })
-});
+//   User.findOne( { _id: req.user._id}, function(err, foundUser, next){
+//     console.log(foundUser.profile.name);
+//     foundUser.image = req.file
+//     foundUser.save(function(err, next){
+//       if(err) return next(err); 
+//       res.send('Success');
+//     })
+//   })
+// });
 
 function paginate(req, res, next) {
   var perPage = 9;
